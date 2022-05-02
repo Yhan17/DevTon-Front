@@ -26,6 +26,7 @@ export default function Login() {
         isClosable: true,
 
       })
+      setLoading(false)
       return
     }
     const { _id: id, isFirstTime, avatar } = response;

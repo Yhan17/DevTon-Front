@@ -4,16 +4,19 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 import like from '../../assets/like.svg'
 import dislike from '../../assets/dislike.svg'
-import itsamatch from '../../assets/itsamatch.png'
+import itsaMatch from '../../assets/itsamatch.png'
 import { dislikeAnDev, getDevs, IUser, likeAnDev, persistentStorage } from '../../services';
 import { io } from 'socket.io-client';
-import { Flex } from '@chakra-ui/react';
+import { Avatar, Flex } from '@chakra-ui/react';
 
 export default function Main() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [matchDev, setMatchDev] = useState<IUser>();
   const _id = persistentStorage.getItem('id')
   const _avatar = persistentStorage.getItem('image')
+
+
+
   useEffect(() => {
     async function loadUsers() {
       const response = await getDevs(`${_id}`)
@@ -21,12 +24,6 @@ export default function Main() {
     };
     if (_id) {
       loadUsers();
-    }
-  }, [_id]);
-
-  useEffect(() => {
-
-    if (_id) {
       const url = process.env.REACT_APP_API_URL
       const socket = io(`${url}`, {
         query: {
@@ -37,6 +34,10 @@ export default function Main() {
       socket.on('match', (dev: IUser) => {
         setMatchDev(dev)
       });
+
+      socket.on('newUser', (_) => {
+        loadUsers()
+      })
     }
   }, [_id])
 
@@ -49,12 +50,11 @@ export default function Main() {
     setUsers(users.filter(user => user._id !== id));
   }
   return (<div className="main-container">
-    <Flex justifyContent="space-between" flexDirection="column" gap={2} >
+    <Flex justifyContent="space-between" flexDirection="row" alignItems="center" gap={2} >
       <Link to="/">
         <img src={logo} alt="DevTon" className='logoMain' />
       </Link>
-
-      <img src={`${_avatar}`} alt="UserImage" className='userAvatar'></img>
+      <Avatar name='User' src={`${_avatar}`} size="lg" />
     </Flex>
     {users && users.length > 0 ? (
       <ul>
@@ -82,7 +82,7 @@ export default function Main() {
     {
       matchDev && (
         <div className="match-container">
-          <img src={itsamatch} alt="" />
+          <img src={itsaMatch} alt="" />
           <img className="avatar" src={matchDev.avatar} alt="" />
           <strong>{matchDev.name == null ? matchDev.user : matchDev.name}</strong>
           <p>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { persistentStorage } from "../../services";
 import logo from '../../assets/logo.png'
 import { Button, Flex, Text, useToast } from "@chakra-ui/react";
 import './Languages.css'
@@ -10,10 +9,9 @@ import { useNavigate } from "react-router";
 
 export default function Languages() {
   const [isLoading, setLoading] = useState(false)
-
+  
   const [id, setId] = useState('default')
   useEffect(() => {
-    navigate(0)
     const _id = persistentStorage.getItem('id')
     setId(`${_id}`)
   }, [])

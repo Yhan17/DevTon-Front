@@ -5,9 +5,9 @@ import Main from "../pages/Main/Main";
 
 export default function Routes() {
   const routes = useRoutes([
-    { path: "/", element: Login() },
-    { path: "/dev/languages", element: Languages() },
-    { path: "/dev/search", element: Main() },
+    { path: "/", element: <Login/> },
+    { path: "/dev/languages", element: <Languages/> },
+    { path: "/dev/search", element: <Main/> },
   ])
 
   return routes
