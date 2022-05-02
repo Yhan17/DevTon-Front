@@ -13,6 +13,7 @@ export default function Main() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [matchDev, setMatchDev] = useState<IUser>();
   const _id = persistentStorage.getItem('id')
+  const _avatar = persistentStorage.getItem('image')
   useEffect(() => {
     async function loadUsers() {
       const response = await getDevs(`${_id}`)
@@ -48,10 +49,12 @@ export default function Main() {
     setUsers(users.filter(user => user._id !== id));
   }
   return (<div className="main-container">
-    <Flex justifyContent="flex-start" flexDirection="column" gap={2} >
+    <Flex justifyContent="space-between" flexDirection="column" gap={2} >
       <Link to="/">
         <img src={logo} alt="DevTon" className='logoMain' />
       </Link>
+
+      <img src={`${_avatar}`} alt="UserImage" className='userAvatar'></img>
     </Flex>
     {users && users.length > 0 ? (
       <ul>

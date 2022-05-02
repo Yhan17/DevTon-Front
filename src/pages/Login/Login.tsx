@@ -9,13 +9,14 @@ import { Duration } from "persistor-node";
 
 export default function Login() {
   const [username, setUsername] = useState('');
+  const [isLoading, setLoading] = useState(false)
   const navigate = useNavigate()
   const toast = useToast()
 
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-
+    setLoading(true)
     const response = await login(username)
     if (!response) {
       toast({
@@ -27,14 +28,17 @@ export default function Login() {
       })
       return
     }
-    const { _id: id, isFirstTime } = response;
+    const { _id: id, isFirstTime, avatar } = response;
     persistentStorage.setItem('id', id, { expireIn: Duration.HOUR })
-
+    persistentStorage.setItem('image', avatar, { expireIn: Duration.HOUR })
+    setLoading(false)
     if (isFirstTime) {
       navigate(`/dev/languages`);
+
       return
     }
     navigate(`/dev/search`);
+
   }
 
   return (
@@ -46,7 +50,7 @@ export default function Login() {
             onChange={e => {
               setUsername(e.target.value)
             }} />
-          <Button colorScheme='teal' variant='outline' type="submit">
+          <Button colorScheme='teal' variant='outline' type="submit" isLoading={isLoading}>
             Enviar
           </Button>
         </Flex>

@@ -9,6 +9,7 @@ import { persistentStorage, registerTechs } from "../../services";
 import { useNavigate } from "react-router";
 
 export default function Languages() {
+  const [isLoading, setLoading] = useState(false)
 
   const [id, setId] = useState('default')
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function Languages() {
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    setLoading(true)
     const techs = selectedItems.map(e => e.value)
     const response = await registerTechs(id, techs)
 
@@ -36,8 +38,11 @@ export default function Languages() {
         isClosable: true,
 
       })
+      setLoading(false)
       return
     }
+    setLoading(false)
+
     navigate(`/dev/search`);
   }
 
@@ -58,7 +63,7 @@ export default function Languages() {
               setResult={(options: Option[]) => setSelectedItems(options)}
               placeholder="Selecione a linguagem"
             />
-            <Button colorScheme='teal' variant='outline' type="submit">
+            <Button colorScheme='teal' variant='outline' type="submit" isLoading={isLoading}>
               Enviar
             </Button>
           </Flex>

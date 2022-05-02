@@ -3,6 +3,12 @@
   height: 150px;
 }
 
+.userAvatar {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+}
+
 .main-container {
   max-width: 980px;
   margin: 0 auto;
