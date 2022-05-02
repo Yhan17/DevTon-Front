@@ -34,7 +34,6 @@ export default function Login() {
     setLoading(false)
     if (isFirstTime) {
       navigate(`/dev/languages`);
-
       return
     }
     navigate(`/dev/search`);

@@ -13,6 +13,7 @@ export default function Languages() {
 
   const [id, setId] = useState('default')
   useEffect(() => {
+    navigate(0)
     const _id = persistentStorage.getItem('id')
     setId(`${_id}`)
   }, [])
