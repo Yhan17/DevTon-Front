@@ -1,7 +1,7 @@
 import { PersistentStorage } from "persistor-node";
 import api from "../http";
 
-interface IUser {
+export interface IUser {
   _id: string,
   name: string,
   user: string,
@@ -31,6 +31,51 @@ export const registerTechs = async (user: string, techs: string[]) => {
     }, { headers: { user } })
 
     return data
+  } catch (e) {
+    console.warn(e)
+  }
+}
+
+export const getDevs = async (user: string) => {
+  try {
+    const { data } = await api.get('/devs', {
+      headers: {
+        user
+      }
+    })
+
+    return data
+
+  } catch (e) {
+    console.warn(e)
+  }
+}
+
+export const likeAnDev = async (user: string, targetId: string) => {
+  try {
+    const { data } = await api.post(`/devs/${targetId}/likes`, null, {
+      headers: {
+        user
+      }
+    })
+
+    return data
+
+  } catch (e) {
+    console.warn(e)
+  }
+}
+
+export const dislikeAnDev = async (user: string, targetId: string) => {
+  try {
+    const { data } = await api.post(`/devs/${targetId}/dislikes`, null, {
+      headers: {
+        user
+      }
+    })
+
+    return data
+
   } catch (e) {
     console.warn(e)
   }

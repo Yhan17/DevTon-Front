@@ -1,7 +1,7 @@
 import { useRoutes } from "react-router-dom";
 import Languages from "../pages/Languages/Languages";
 import Login from "../pages/Login/Login";
-import Main from "../pages/Main";
+import Main from "../pages/Main/Main";
 
 export default function Routes() {
   const routes = useRoutes([
