@@ -53,7 +53,7 @@ export default function Main() {
         <img src={logo} alt="DevTon" className='logoMain' />
       </Link>
     </Flex>
-    {users.length > 0 && users ? (
+    {users && users.length > 0 ? (
       <ul>
         {users.map(user => (
           <li key={user._id}>
