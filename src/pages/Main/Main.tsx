@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png'
 import like from '../../assets/like.svg'
 import dislike from '../../assets/dislike.svg'
 import itsaMatch from '../../assets/itsamatch.png'
-import { dislikeAnDev, getDevs, IUser, likeAnDev, persistentStorage } from '../../services';
+import { dislikeAnDev, getDevs, IUser, likeAnDev, logout, persistentStorage } from '../../services';
 import { io } from 'socket.io-client';
 import { Avatar, AvatarBadge, Box, Button, Flex, Menu, MenuButton, MenuItem, MenuList, Image, chakra, Text } from '@chakra-ui/react';
 
@@ -49,6 +49,8 @@ export default function Main() {
     await dislikeAnDev(`${_id}`, id)
     setUsers(users.filter(user => user._id !== id));
   }
+
+
   return (<div className="main-container">
     <Flex justifyContent="space-between" flexDirection="row" alignItems="center" gap={2} >
       <Link to="/">
@@ -69,7 +71,9 @@ export default function Main() {
           <Link to="/dev/dislikes">
             <MenuItem>Dislikes</MenuItem>
           </Link>
-
+          <MenuItem onClick={logout}>
+            Logout
+          </MenuItem>
         </MenuList>
       </Menu>
     </Flex>

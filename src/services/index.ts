@@ -13,6 +13,11 @@ export interface IUser {
 
 export const persistentStorage = PersistentStorage.getOrCreate('user', { storage: localStorage })
 
+export function logout() {
+  persistentStorage.removeItem('id')
+  persistentStorage.removeItem('image')
+}
+
 export const login = async (username: string) => {
   try {
     const { data } = await api.post<IUser>('/dev', {
@@ -83,7 +88,7 @@ export const dislikeAnDev = async (user: string, targetId: string) => {
 
 export const getLikedDevs = async (user: string) => {
   try {
-    const { data } = await api.get(`/devs/likes`,{
+    const { data } = await api.get(`/devs/likes`, {
       headers: {
         user
       }
