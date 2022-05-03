@@ -3,7 +3,7 @@ import logo from '../../assets/logo.png'
 import { login } from "../../services";
 import { useNavigate } from "react-router";
 import './Login.css'
-import { Button, Input, Flex, useToast } from "@chakra-ui/react";
+import { Button, Input, Flex, useToast, Image } from "@chakra-ui/react";
 import { persistentStorage } from "../../services";
 import { Duration } from "persistor-node";
 
@@ -44,7 +44,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit}>
-        <img src={logo} alt="DevTon" className="logo" />
+        <Image src={logo} alt="DevTon" className="logo" />
         <Flex justifyContent="center" flexDirection="column" gap={2}>
           <Input placeholder='Digite o seu usuário do github' size='lg' value={username}
             onChange={e => {

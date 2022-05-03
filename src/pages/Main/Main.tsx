@@ -7,7 +7,7 @@ import dislike from '../../assets/dislike.svg'
 import itsaMatch from '../../assets/itsamatch.png'
 import { dislikeAnDev, getDevs, IUser, likeAnDev, persistentStorage } from '../../services';
 import { io } from 'socket.io-client';
-import { Avatar, Flex } from '@chakra-ui/react';
+import { Avatar, AvatarBadge, Box, Button, Flex, Menu, MenuButton, MenuItem, MenuList, Image, chakra, Text } from '@chakra-ui/react';
 
 export default function Main() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -52,38 +52,55 @@ export default function Main() {
   return (<div className="main-container">
     <Flex justifyContent="space-between" flexDirection="row" alignItems="center" gap={2} >
       <Link to="/">
-        <img src={logo} alt="DevTon" className='logoMain' />
+        <Image src={logo} alt="DevTon" className='logoMain' />
       </Link>
-      <Avatar name='User' src={`${_avatar}`} size="lg" />
+      <Menu placement="bottom">
+        <MenuButton>
+          <Avatar name='User' src={`${_avatar}`} size="lg" >
+            <AvatarBadge boxSize='1.25em' bg='green.500' />
+          </Avatar>
+        </MenuButton>
+        <MenuList>
+          <Link to="/dev/likes">
+            <MenuItem>
+              Likes
+            </MenuItem>
+          </Link>
+          <Link to="/dev/dislikes">
+            <MenuItem>Dislikes</MenuItem>
+          </Link>
+
+        </MenuList>
+      </Menu>
     </Flex>
     {users && users.length > 0 ? (
-      <ul>
+      <chakra.ul>
         {users.map(user => (
-          <li key={user._id}>
-            <img src={user.avatar} alt="Avatar"></img>
-            <footer>
-              <strong>{user.name == null ? user.user : user.name}</strong>
-              <p>{user.bio == null ? 'Sem Descrição' : user.bio}</p>
-            </footer>
-            <div className="buttons">
-              <button type="button" onClick={() => handleLike(user._id)}>
-                <img src={like} alt="like" />
-              </button>
-              <button type="button" onClick={() => handleDislike(user._id)}>
-                <img src={dislike} alt="dislike" />
-              </button>
-            </div>
-          </li>
+          <chakra.li key={user._id}>
+            <Image src={user.avatar} alt="Avatar"></Image>
+            <chakra.footer>
+              <chakra.strong>{user.name == null ? user.user : user.name}</chakra.strong>
+              <Text>{user.bio == null ? 'Sem Descrição' : user.bio}</Text>
+            </chakra.footer>
+            <Box className="buttons">
+              <Button type="button" onClick={() => handleLike(user._id)}>
+                <Image src={like} alt="like" />
+              </Button>
+              <Button type="button" onClick={() => handleDislike(user._id)}>
+                <Image src={dislike} alt="dislike" />
+              </Button>
+            </Box>
+          </chakra.li>
         ))}
-      </ul>
+      </chakra.ul>
     ) : (
       <div className="empty">Acabou :(</div>
     )}
     {
       matchDev && (
         <div className="match-container">
-          <img src={itsaMatch} alt="" />
-          <img className="avatar" src={matchDev.avatar} alt="" />
+          <Image src={itsaMatch} alt="" />
+          <Image className="avatar" src={matchDev.avatar} alt="" />
           <strong>{matchDev.name == null ? matchDev.user : matchDev.name}</strong>
           <p>
             {matchDev.bio == null ? 'Sem Descrição' : matchDev.bio}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from '../../assets/logo.png'
-import { Button, Flex, Text, useToast } from "@chakra-ui/react";
+import { Button, Flex, Text, useToast, Image } from "@chakra-ui/react";
 import './Languages.css'
 import json from './github.json'
 import { Autocomplete, Option } from "chakra-ui-simple-autocomplete";
@@ -48,7 +48,7 @@ export default function Languages() {
   return (
     <div>
       <Flex justifyContent="flex-start" flexDirection="column" gap={2} >
-        <img src={logo} alt="DevTon" className="languageLogo" />
+        <Image src={logo} alt="DevTon" className="languageLogo" />
       </Flex>
       <Flex justifyContent='center' alignItems='center' h='80vh' flexDir="column" gap={3} >
         <Text fontSize='xl'>Adicione as linguagens que tem afinidade</Text>

@@ -80,3 +80,33 @@ export const dislikeAnDev = async (user: string, targetId: string) => {
     console.warn(e)
   }
 }
+
+export const getLikedDevs = async (user: string) => {
+  try {
+    const { data } = await api.get(`/devs/likes`,{
+      headers: {
+        user
+      }
+    })
+
+    return data
+
+  } catch (e) {
+    console.warn(e)
+  }
+}
+
+export const getDislikedDevs = async (user: string) => {
+  try {
+    const { data } = await api.get(`/devs/dislikes`, {
+      headers: {
+        user
+      }
+    })
+
+    return data
+
+  } catch (e) {
+    console.warn(e)
+  }
+}
